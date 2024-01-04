@@ -8,13 +8,12 @@ listing:
     - "**/index.markdown"
     - "**/index.md"
   sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: true
-  filter-ui: true
-  fields: [title, author, categories, date]
+  type: grid
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  fields: [title, author, date, image]
   image-align: left
-  date-format: "YYYY"
   page-size: 25
 
 format: 

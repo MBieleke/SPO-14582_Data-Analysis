@@ -1,7 +1,9 @@
 ---
-title: "Introduction"
+title: "01 - Introduction"
 author: "Dr. Maik Bieleke"
+date: "2024-01-04"
 format: revealjs
+image: featured.jpg
 ---
 
 ## Quarto
