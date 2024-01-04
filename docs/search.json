@@ -18,14 +18,14 @@
     "href": "slides/index.html",
     "title": "Slides",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nIntroduction\n\n\n\n\n\n\n\n\n\nDr. Maik Bieleke\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "slides/01-introduction/01-introduction.html#quarto",
     "href": "slides/01-introduction/01-introduction.html#quarto",
     "title": "Introduction",
-    "section": "Quarto",
-    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
   },
   {
     "objectID": "slides/01-introduction/01-introduction.html#bullets",
@@ -37,6 +37,41 @@
   {
     "objectID": "slides/01-introduction/01-introduction.html#code",
     "href": "slides/01-introduction/01-introduction.html#code",
+    "title": "Introduction",
+    "section": "Code",
+    "text": "Code\nWhen you click the Render button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "slides/01-introduction/01-introduction.html",
+    "href": "slides/01-introduction/01-introduction.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+  },
+  {
+    "objectID": "slides/01-introduction/index.html",
+    "href": "slides/01-introduction/index.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+  },
+  {
+    "objectID": "slides/01-introduction/index.html#quarto",
+    "href": "slides/01-introduction/index.html#quarto",
+    "title": "Introduction",
+    "section": "Quarto",
+    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+  },
+  {
+    "objectID": "slides/01-introduction/index.html#bullets",
+    "href": "slides/01-introduction/index.html#bullets",
+    "title": "Introduction",
+    "section": "Bullets",
+    "text": "Bullets\nWhen you click the Render button a document will be generated that includes:\n\nContent authored with markdown\nOutput from executable code"
+  },
+  {
+    "objectID": "slides/01-introduction/index.html#code",
+    "href": "slides/01-introduction/index.html#code",
     "title": "Introduction",
     "section": "Code",
     "text": "Code\nWhen you click the Render button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n\n[1] 2"
