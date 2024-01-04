@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "homepage_template"
+  title: "SWAM-II"
   navbar:
     left:
       - href: index.qmd

@@ -1,11 +1,7 @@
 ---
-title: "homepage_template"
+title: "Sportwissenschaftliche Arbeitsmethoden II"
+subtitle: "Vorlesung an der Universität Konstanz"
+author: "Dr. Maik Bieleke"
 ---
 
-This is a Quarto website for SWAM-II.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Diese Seite beinhaltet die Materialien für die Vorlesung "Sportwissenschaftliche Arbeitsmethoden (II)" (SWAM-II).
