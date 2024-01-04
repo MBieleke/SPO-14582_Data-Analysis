@@ -2,25 +2,17 @@
 title: "01 - Introduction"
 author: "Dr. Maik Bieleke"
 date: "2024-01-04"
-format: revealjs
 image: featured.jpg
 ---
 
-## Quarto
+## Info
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+These slides provide a first introduction to the course.
 
-## Bullets
+## Slides
 
-When you click the **Render** button a document will be generated that includes:
+Here you can see the slides.
 
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+```{=html}
+<iframe class="slide-deck" src="/slides/01-introduction/01-introduction.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
 ```

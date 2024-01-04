@@ -1,7 +1,8 @@
 ---
-title: "Sportwissenschaftliche Arbeitsmethoden II (SWAM-II)"
+title: "Sportwissenschaftliche Arbeitsmethoden II"
+subtitle: "(SWAM-II)"
 ---
 
-# Herzlich willkommen!
+### Herzlich willkommen!
 
 Auf dieser Seite finden Sie alle Informationen und Unterlagen zur Vorlesung SWAM-II.
