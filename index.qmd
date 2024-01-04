@@ -1,0 +1,11 @@
+---
+title: "homepage_template"
+---
+
+This is a Quarto website for SWAM-II.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+```{r}
+1 + 1
+```
