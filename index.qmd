@@ -1,7 +1,7 @@
 ---
-title: "Sportwissenschaftliche Arbeitsmethoden II"
-subtitle: "Vorlesung an der Universität Konstanz"
-author: "Dr. Maik Bieleke"
+title: "Sportwissenschaftliche Arbeitsmethoden II (SWAM-II)"
 ---
 
-Diese Seite beinhaltet die Materialien für die Vorlesung "Sportwissenschaftliche Arbeitsmethoden (II)" (SWAM-II).
+# Herzlich willkommen!
+
+Auf dieser Seite finden Sie alle Informationen und Unterlagen zur Vorlesung SWAM-II.

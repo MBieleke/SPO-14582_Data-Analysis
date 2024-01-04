@@ -10,8 +10,7 @@ website:
         href: index.qmd
       - text: Slides
         href: slides/index.qmd
-      - about.qmd
-
+        
 format:
   html:
     theme: cosmo
