@@ -1,5 +1,6 @@
 ---
 title: "homepage_template"
+output-dir: docs
 ---
 
 This is a Quarto website for SWAM-II.
