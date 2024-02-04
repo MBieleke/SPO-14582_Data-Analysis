@@ -1,8 +1,8 @@
 ---
-title: "Sportwissenschaftliche Arbeitsmethoden II"
+title: "SPO-14582 Data Analysis"
 subtitle: "(SWAM-II)"
 ---
 
 ### Herzlich willkommen!
 
-Auf dieser Seite finden Sie alle Informationen und Unterlagen zur Vorlesung SWAM-II.
+Auf dieser Seite finden Sie alle Informationen und Unterlagen zum Seminaur SPO-14582 Data Analysis.
