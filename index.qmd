@@ -1,6 +1,5 @@
 ---
 title: "SPO-14582 Data Analysis"
-subtitle: "(SWAM-II)"
 ---
 
 ### Herzlich willkommen!
