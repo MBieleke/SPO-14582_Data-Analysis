@@ -1,0 +1,333 @@
+---
+title: "Kapitel 6"
+author: "Matthias Ziegler und Markus Bühner"
+date: "10 10 2017"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    
+---
+
+In diesem html Dokument finden sich Code und Ausgaben, wie sie in Kapitel 7 angegeben sind. 
+
+#Kapitel 7
+##Korrelation
+###Festlegen des Arbeitsverzeichnisses
+```{r}
+setwd("/Users/Matthias/Dropbox/Statistikbuch 2. Auflage/htmls")
+```
+  
+###Daten einlesen
+```{r}
+library(foreign)
+data.regression<- read.spss("Regression_bsp_1.sav", use.value.labels=TRUE, to.data.frame=TRUE, use.missings = TRUE)
+head(data.regression)
+```
+  
+###Korrelation berechnen
+```{r}
+cor.test(x = data.regression$Punkte_K, y = data.regression$Punkte_Test, alternative = 'two.sided', method = 'pearson')
+```
+  
+####Mit Bootstrap
+```{r}
+library(boot)
+cor.boot <- function(data = data.regression, k) { cor(data[k,])[1,2]}
+cor.res <- boot(data=with(data.regression, cbind(Punkte_K, Punkte_Test)),
+statistic=cor.boot, R=1000)
+boot.ci(cor.res, type="bca")
+```
+  
+###Kendalls-Tau-b und die Spearman-Rangkorrelation
+```{r}
+cor.test(x = data.regression$Punkte_K, y = data.regression$Punkte_Test, alternative= 'two.sided', method = 'kendall')
+
+cor.test(x = data.regression$Punkte_K, y = data.regression$Punkte_Test, alternative = 'two.sided', method = 'spearman')
+
+library(Kendall)
+Kendall(x = data.regression$Punkte_K, y = data.regression$Punkte_Test)
+```
+
+  
+###Biseriale Korrelation
+####Daten einlesen
+```{r}
+library (foreign)
+data.regression3 <- read.spss("Regression_bsp_3.sav", use.value.labels=TRUE, to.data.frame=TRUE, use.missings = TRUE)
+head(data.regression3)
+```
+  
+####Eigentliche Berechnung
+```{r}
+library(psych)
+biserial(x = data.regression3$Punkte_K, y = data.regression3$Punkte_Test)
+```
+  
+###Tetrachorische Korrelation
+####Daten einlesen
+```{r}
+library (foreign)
+data.regression4 <- read.spss("Regression_bsp_4.sav", use.value.labels=TRUE, to.data.frame=TRUE, use.missings = TRUE)
+head(data.regression4)
+```
+  
+####Eigentliche Berechnung
+```{r}
+library(psych)
+tetrachoric(data.regression4)
+```
+  
+##Multiple lineare Regression
+###Daten einlesen
+```{r}
+library (foreign)
+data.regression6 <- read.spss("Regression_bsp_6.sav", use.value.labels=TRUE, to.data.frame=TRUE, use.missings = TRUE)
+head(data.regression6)
+```
+  
+###Eigentliche Regression
+```{r}
+bsp6 <- lm(bdi_ges ~ fie_nsb + fie_abk, data=data.regression6)
+summary(bsp6)
+
+confint(bsp6, level=0.95)
+
+library(lm.beta)
+lm.beta(bsp6)
+
+#oder
+bsp6b <- lm(scale(bdi_ges, center=T, scale=T) ~ scale(fie_nsb, center=T, scale=T) + scale(fie_abk, center=T, scale =T), data=data.regression6)
+summary(bsp6b)
+```
+
+  
+###Semipartialkorrelation
+```{r}
+library(ppcor)
+spcor(data.regression6)
+
+#oder
+spcor.test(x=data.regression6$bdi_ges, y=data.regression6$fie_nsb, z=data.regression6$fie_abk)
+
+spcor.test(x=data.regression6$bdi_ges, y=data.regression6$fie_abk,
+z=data.regression6$fie_nsb)
+```
+  
+####Übersicht
+```{r}
+corrs <- corr.test(data.regression6) #Erstellen der Korrelationen
+cs <- corrs$r[1:2,3] #Auslesen der Kriteriumskorrelationen
+spcorrs <- spcor(data.regression6) #Erstellen der Semipartialkorrelationen
+scs <- spcorrs$estimate[3,1:2] #Auslesen der relevanten Semipartialkorrelationen
+pcorrs <- pcor(data.regression6) #Erstellen der Partialkorrelationen
+pcs <- pcorrs$estimate[1:2,3] #Auslesen der relevanten Korrelationen
+allcorrs <- cbind(bsp6$coefficients[2:3], bsp6b$coefficients[2:3],cs, pcs, scs)
+#Zusammenfügen und Hinzufügen der Regressionsgewichte
+colnames(allcorrs) <- c("b", "beta", "Zero-Order", "Partial","Semipartial")
+#Benennen der Spalten
+round(allcorrs,3) #Ausgabe und Runden
+
+knitr::kable(x=allcorrs, align = "c", caption="Tabelle X. Übersicht über Korrelationen und Regressionsgewichte", digits=3)
+```
+  
+###Voraussetzungen
+####Ausreißeranalyse
+```{r}
+library(car)
+influencePlot(bsp6, sub="Circle size is proportial to Cook's Distance")
+```
+  
+####Scatterplot Homoskedastizität
+```{r}
+zpred <- scale(fitted(bsp6), center=T, scale=T)
+sres <- rstandard(bsp6)
+
+{plot(x=zpred, y=sres, main="Streudiagramm studentisierter Residuen standardisierte vorhergesagte Werte", xlab="standardisierte vorhergesagte
+Werte", ylab="studentisierte Residuen", pch=16,cex=0.8, col="darkgreen")
+
+abline(a=0,b=0)
+}
+```
+  
+####Überprüfung Homoskedastizität
+```{r}
+library(lmtest)
+bptest(bsp6)
+```
+  
+####Bootstrap
+```{r}
+library(boot)
+bs <- function(data, i, formula) {
+d <- data[i, ]
+fit <- lm(formula, data=d)
+return(coef(fit))
+}
+results <- boot(data = data.regression6, statistic=bs, R=1000, formula= bdi_ges ~ fie_nsb + fie_abk)
+results
+
+plot(results, index=1) # intercept
+plot(results, index=2) # fie_nsb
+plot(results, index=3) # fie_abk
+
+boot.ci(boot.out = results, conf=.95, type="bca", index=1) # intercept
+boot.ci(boot.out = results, conf=.95, type="bca", index=2) # fie_nsb
+boot.ci(boot.out = results, conf=.95, type="bca", index=3) # fie_abk
+
+rsq <- function(data, i, formula) {
+d <- data[i,]
+fit <- lm(formula, data=d)
+return(summary(fit)$r.square)
+}
+results2 <- boot(data=data.regression6, statistic=rsq, R=1000, formula = bdi_ges ~ fie_nsb + fie_abk)
+results2
+plot(results2)
+boot.ci(boot.out = results2, conf=.95, type="bca")
+```
+  
+####NV der Residuen
+```{r}
+hist(rstandard(bsp6), freq=TRUE, breaks=20, main="Verteilung standardisierter Residuen", ylab="Häufigkeiten", xlab="standardisierte Residuen", col="darkgreen",
+xlim=c(-3,5), ylim=c(0,40))
+```
+  
+####Tolerance und VIF
+```{r}
+library(car)
+vif(bsp6)
+
+1/vif(bsp6)
+```
+  
+####Multivariate NV
+```{r}
+library(MVN)
+roystonTest(data.regression6, qqplot = TRUE)
+hzTest(data.regression6, qqplot = FALSE)
+```
+
+  
+###All Subsets Regression
+```{r}
+library(leaps)
+library (foreign)
+data.regression8 <- read.spss("Regression_bsp_8.sav", use.value.labels=FALSE, to.data.frame=TRUE, use.missings = TRUE)
+head(data.regression8)
+
+regsubsets.out <- regsubsets(bdi_ges ~ fie_abk + fie_nsb + fie_ivm + fie_ige + alter + sex, data = data.regression8, nbest = 1, nvmax = NULL, force.in = NULL, force.out = NULL, method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+
+plot(regsubsets.out, scale="adjr2", main="Adjusted R^2")
+plot(regsubsets.out, scale ="bic", main ="BIC")
+
+bs2 <- function(data, i, formula) {
+d <- data[i,]
+fit <- lm(formula, data=d)
+return(coef(fit))
+}
+results3<- boot(data = data.regression8, statistic=bs2, R=1000, formula= bdi_ges ~ fie_nsb + fie_ivm + alter)
+results3
+plot(results3, index=1) # intercept
+plot(results3, index=2) # fie_nsb
+plot(results3, index=3) # fie_ivm
+plot(results3, index=4) # alter
+boot.ci(results3, type="bca", index=1) # intercept
+boot.ci(results3, type="bca", index=2) # fie_nsb
+boot.ci(results3, type="bca", index=3) # fie_ivm
+
+rsq2<- function(formula= bdi_ges ~ fie_nsb + fie_ivm + alter, data = data.regression8, indices = intercept, fie_nsb, fie_abk, alter) {
+d <- data[indices, ] # allows boot to select sample
+fit <- lm(formula, data=d)
+return(summary(fit)$r.square)
+}
+results4<- boot(data = data.regression8, statistic=rsq2, R=1000, formula= bdi_ges ~ fie_nsb + fie_ivm + alter)
+results4
+plot(results4)
+boot.ci(results4, type="bca")
+
+results <- lm(bdi_ges ~ fie_nsb + fie_ivm + alter, data = data.regression8)
+summary(results)
+```
+  
+###Hierarchische Regression
+```{r}
+fit1 <- lm(bdi_ges~alter, data = data.regression8)
+fit2 <- lm(bdi_ges~fie_nsb+fie_ivm+alter, data = data.regression8)
+anova(fit1, fit2)
+
+summary(fit1)
+summary(fit2)
+
+deltar <- summary(fit2)$r.squared-summary(fit1)$r.squared
+deltar
+```
+  
+###Teststärke
+```{r}
+library(pwr)
+pwr.f2.test(u = 2, v = 187, f2 = deltar, sig.level = 0.05, power = NULL)
+```
+  
+##Mediation
+```{r}
+library(mediation)
+med.fit1 <- lm(fie_nsb~fie_abk, data=data.regression6)
+med.fit2 <- lm(bdi_ges~fie_abk+fie_nsb, data=data.regression6)
+med.out <- mediate(med.fit1, med.fit2, treat="fie_abk", mediator="fie_nsb", boot=TRUE, sims=1000)
+summary(med.out)
+
+#oder
+library(lavaan)
+medModel <- '
+#Direkter Effekt
+bdi_ges~c*fie_abk
+#Mediator
+fie_nsb~a*fie_abk
+bdi_ges~b*fie_nsb
+# indirekter Effect (a*b)
+ab := a*b
+# Totaler Effekt
+total := c + (a*b)
+'
+fit <- sem(model = medModel, data = data.regression6, estimator="ML", se="boot", bootstrap=1000)
+
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+
+parameterEstimates(fit, boot.ci.type = "bca.simple")
+inspect( fit, "rsquare" )
+```
+  
+##Moderation
+
+Bitte beachten Sie, dass wir hier abweichend vom Buch eine andere Variante nutzen, um die Regressionsplots darzustellen.
+```{r}
+library(QuantPsyc)
+fitMod <- moderate.lm(x=fie_abk, z=fie_nsb, y=bdi_ges, data=data.regression6, mc=FALSE)
+summary(fitMod)
+
+simpleSlope <- sim.slopes(mod=fitMod, z=data.regression6$fie_nsb, zsd = 1, mcz = FALSE)
+simpleSlope
+
+library(rockchalk)
+data.regression6$fie_nsbc <- as.numeric(scale(data.regression6$fie_nsb, center=TRUE))
+data.regression6$fie_abkc <- as.numeric(scale(data.regression6$fie_abk, center=TRUE))
+bdiMod <- lm(bdi_ges~fie_abkc*fie_nsbc, data=data.regression6)
+plotSlopes(bdiMod, plotx="fie_abkc", modx="fie_nsbc", modxVals="std.dev.")
+```
+
+
+
+
+
+
+
+
+
+
+
+

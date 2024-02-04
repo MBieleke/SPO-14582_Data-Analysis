@@ -1,0 +1,327 @@
+---
+title: "Kapitel 5"
+author: "Matthias Ziegler und Markus Bühner"
+date: "15 9 2017"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    
+---
+
+In diesem html Dokument finden sich Code und Ausgaben, wie sie in Kapitel 5 angegeben sind. 
+
+#Kapitel 5
+##Festlegen des Arbeitsverzeichnisses
+```{r}
+setwd("/Users/Matthias/Dropbox/Statistikbuch 2. Auflage/htmls")
+```
+  
+##t-Test für eine Stichprobe 
+###Daten einlesen und deskriptive Statistiken
+```{r}
+library(foreign) 
+kap5_1 <- read.spss("Buch_t_Test_eine Stichprobe.sav", to.data.frame = TRUE)
+head(kap5_1)
+library(psych)
+desc_1St <- describe(kap5_1$BDI_t1)
+library(xlsx) 
+write.xlsx(desc_1St, "Deskriptive Statistiken Einstichproben t Test.xlsx")
+```
+###Eigentlicher t-Test
+```{r}
+t_ttest1 <- t.test(x = kap5_1$BDI_t1, mu = 18, alternative = "two.sided",
+conf.level = .95)
+t_ttest1
+```
+
+###Bootstrap
+```{r}
+library(boot)
+ttest1a <- function(data, i) {
+t.test(data[i], mu = 18,alternative = "two.sided", conf.level = .95)$statistic
+}
+boot1a <- boot(data = kap5_1$BDI_t, statistic = ttest1a, R = 1000)
+boot1a
+quantile(boot1a$t, c(.025, .975))
+boot.ci(boot.out = boot1a, type ="bca")
+```
+  
+###Zweites Beispiel, inklusive Bootstrap
+```{r}
+ttest1b <- function(data, i) {
+mean(data[i])-18
+}
+boot1b <- boot(data = kap5_1$BDI_t, statistic = ttest1b, R = 1000)
+boot1b
+quantile(boot1b$t, c(.025, .975))
+boot.ci(boot.out = boot1b, type = "bca")
+```
+  
+##t-Test für abhängige Stichproben
+###Daten einlesen und deskriptive Statistiken
+```{r}
+library(foreign) 
+kap5_2 <- read.spss("Buch_t_Test_abhängig.sav", to.data.frame = TRUE)
+head(kap5_2)
+
+descs2 <- describe(kap5_2[c("BDI_t1", "BDI_t2")])
+descs2
+
+plot(kap5_2$BDI_t1, kap5_2$BDI_t2, xlab="BDI T1", ylab="BDI T2", xlim=c(0,50), ylim=c(0,50),pch=21, bg="darkgreen", col="darkgreen")
+
+desc_2St <- describe(kap5_1$BDI_t1)
+library(xlsx) 
+write.xlsx(desc_1St, "Deskriptive Statistiken Einstichproben t Test.xlsx")
+```
+  
+###Eigentlicher t-Test
+```{r}
+ttest2 <- t.test(x = kap5_2$BDI_t1, y = kap5_2$BDI_t2, alternative = "greater",
+paired = TRUE, conf.level = .95)
+ttest2
+```
+  
+###Effektstärke und Power
+```{r}
+sed <- sd(kap5_2$BDI_t1-kap5_2$BDI_t2)
+diff <- ttest2$estimate
+g <- diff/sed
+g
+library(pwr)
+pwr.t.test(n = 90, d = g, sig.level = .05, power = NULL, type = "paired",
+alternative = "greater")
+
+```
+  
+###Bootstrap
+```{r}
+library(boot)
+ttest2_bfun <- function(data,i) {
+t.test(x = data[i, 1], y = data[i, 2], paired = TRUE, alternative =
+"greater")$estimate
+}
+kap5_2_tt2 <- kap5_2[c(2, 3)]
+boottt2 <- boot(data = kap5_2_tt2, statistic = ttest2_bfun, R = 1000)
+boottt2
+quantile(boottt2$t, c(.025, .975))
+boot.ci(boot.out = boottt2, type ="bca")
+```
+
+  
+###Transformieren und KI Plot
+```{r}
+kap5_2$diff <- kap5_2$BDI_t1 - kap5_2$BDI_t2
+
+kap5_2$x <- "Mittlere Differenz t1-t2"
+library(ggplot2)
+{
+abb5.21 <- ggplot(data = kap5_2, aes(x = factor(x), y = diff))
+abb5.21 + stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width =
+.03, colour = "black")+stat_summary(fun.y = mean, geom = "point", size =
+5, colour = "dark green")+labs(x = "", y = "95% CI", size = 20)+theme(axis.text = element_text(size = 20, color = "black"))
+}
+```
+  
+##t-Test für unabhängige Stichproben
+###Daten einlesen und deskriptive Statistiken
+```{r}
+library(foreign) 
+kap5_3 <- read.spss("Buch_t-Tests.sav", to.data.frame = TRUE)
+head(kap5_3)
+```
+
+
+```{r}
+library(psych)
+describeBy(kap5_3$BDI, group = kap5_3$Behandlung)
+```
+  
+###Tests der Varianzhomogenität
+```{r}
+library(lawstat)
+#Klassischer Levene
+lev <- levene.test(kap5_3[, "BDI"], kap5_3[, "Behandlung"], location = "mean")
+lev
+
+#Brown Forsythe Test mit Hines und Hines
+lev_r <- levene.test(kap5_3[, "BDI"], kap5_3[, "Behandlung"], location = "median", correction.method = "zero.removal")
+lev_r
+
+```
+
+  
+###Eigentlicher t-Test
+```{r}
+ttest3 <- t.test(kap5_3$BDI~kap5_3$Behandlung, alternative = "greater", var.equal =FALSE)
+ttest3
+```
+  
+###Bootstrap
+```{r}
+library(boot)
+ttest3_bfun <- function(data,i) {
+t.test(data[i, 2]~data[i, 1], alternative = "greater", var.equal =
+FALSE)$statistic
+}
+kap5_3_tt3 <- kap5_3[c(2, 3)]
+boottt3 <- boot(data = kap5_3_tt3, statistic = ttest3_bfun, R = 1000)
+boottt3
+quantile(boottt3$t, c(.025, .975))
+boot.ci(boot.out = boottt3, type = "bca")
+```
+  
+###Effektstärke und Power
+```{r}
+library(compute.es)
+g_tt3 <- tes(t = 6.3923, n.1 = 90, n.2 = 90, level = 95)
+
+library(pwr)
+pwr.t2n.test(n1 = 90, n2 = 90, d = .95, sig.level = .05, power = NULL, alternative= "greater")
+```
+  
+###Grafische Darstellung
+```{r}
+abb5.32 <- ggplot(data = kap5_3, aes(x = factor(Behandlung), y = BDI))
+abb5.32 + stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width =
+.1, colour = "black") + stat_summary(fun.y = mean, geom = "point", size =
+5, colour = "dark green") + labs(x = "Gruppe", y = "Symptombelastung im BDI mit
+95% CI", size = 20) + theme(axis.text = element_text(size = 20, color = "black"))
+```
+
+  
+##Wilcoxon-Vorzeichen-Rang-Test für abhängige Stichproben
+###Deskriptive Statistiken
+```{r}
+kap5_2$diff <- kap5_2$BDI_t1-kap5_2$BDI_t2
+kap5_2a <- subset(kap5_2, diff != 0)
+kap5_2a$rang <- rank(abs(kap5_2a$diff), ties.method = "average")
+kap5_2a <- within(kap5_2a, {
+rangvor <- NA
+rangvor[diff < 0] <- "negativ"
+rangvor[diff > 0] <- "positiv"
+})
+describeBy(kap5_2a$rang, group = kap5_2a$rangvor)
+```
+  
+###Eigentlicher Test
+```{r}
+w_test <- wilcox.test(x = kap5_2$BDI_t1, y = kap5_2$BDI_t2, alternative =
+"greater", paired = TRUE, exact = TRUE, conf.level = .95, conf.int = TRUE)
+w_test
+```
+
+  
+##U-Test für unabhängige Stichproben
+###Deskriptive Statistiken
+```{r}
+kap5_3$rang <- rank(kap5_3$BDI, ties.method = "average")
+describeBy(kap5_3$rang, group = kap5_3$Behandlung)
+```
+  
+###Eigentlicher Test
+```{r}
+wilcox.test(kap5_3$BDI~kap5_3$Behandlung, alternative = "greater", exact = TRUE,
+conf.level = .95, conf.int = TRUE)
+```
+  
+##Chi2 Test
+###Deskriptive Statistiken
+```{r}
+library(vcd)
+Kreuztabelle <- xtabs(~Geschlecht, data = kap5_2)
+Kreuztabelle
+```
+  
+###Eigentlicher Test und Ausgabe
+```{r}
+asymp <- chisq.test(Kreuztabelle)
+sim <- chisq.test(Kreuztabelle, simulate.p.value = TRUE, B = 10000)
+beobachtet<- asymp$observed
+erwartet <- asymp$expected
+residuals <- asymp$residuals
+Haeufig <- rbind(beobachtet, erwartet, residuals)
+colnames(Haeufig)[1] <- "Keine Behandlung"
+colnames(Haeufig)[2] <- "Behandlung"
+Haeufig
+round(Haeufig,2)
+ps <- rbind(asymp, sim)
+colnames(ps)[1] <- "Keine Behandlung"
+colnames(ps)[2] <- "Behandlung"
+ps
+``` 
+  
+##Chi2-Vier-Felder-Test
+```{r}
+Kreuztabelle2 <- xtabs(~sig_Verb + Behandlung, data = kap5_3)
+Kreuztabelle2
+chisq.test(Kreuztabelle2)
+#Alternativ
+chisq.test(x = kap5_3$Behandlung, y = kap5_3$sig_Verb)
+#Simulieren des p-Wertes
+chisq.test(x = kap5_3$Behandlung, y = kap5_3$sig_Verb, simulate.p.value = TRUE,
+B = 10000)
+#Wie SPSS
+library(gmodels)
+Kreuztabelle2a <- CrossTable(x = kap5_3$Behandlung, y = kap5_3$sig_Verb, digits = 1, format = "SPSS", chisq = TRUE)
+```
+
+###Effektstärke und Power
+```{r}
+a1 <- 50/180
+b1 <- 30/180
+c1 <- 40/180
+d1 <- 60/180
+
+#oder
+a1 <- Kreuztabelle2[1,1]/180
+b1 <- Kreuztabelle2[1,2]/180
+c1 <- Kreuztabelle2[2,1]/180
+d1 <- Kreuztabelle2[2,2]/180
+
+p_h1 <- matrix(c(a1, b1, c1, d1), nrow = 2, byrow = TRUE)
+w_h1 <- ES.w2(p_h1)
+
+pwr_p_h1 <- pwr.chisq.test(w = w_h1, N = 180, df = 1, sig.level = 0.10, power = NULL)
+pwr_p_h1
+```
+  
+##McNemar Test
+###Eigentlicher Test
+```{r}
+library(gmodels)
+Kreuztabelle3 <- CrossTable(x = kap5_2$Krank_t1, y = kap5_2$Krank_t2, digits =
+1, format = "SPSS", mcnemar = TRUE, fisher = TRUE)
+
+``` 
+  
+###Effektstärke und Power
+```{r}
+p_b <- Kreuztabelle3$t[1, 2] / (Kreuztabelle3$t[1, 2] + Kreuztabelle3$t[2, 1])
+p_c <- Kreuztabelle3$t[2, 1] / (Kreuztabelle3$t[1, 2] + Kreuztabelle3$t[2, 1])
+P0 <- c(.5, .5)
+P1 <- c(p_b, p_c)
+w_mcn <- ES.w1(P0, P1)
+w_mcn
+pwr_w_mcn <- pwr.chisq.test(w = w_mcn, N = 34, df = 1, sig.level = 0.05, power = NULL)
+pwr_w_mcn
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+---
+title: "Kapitel 3"
+author: "Matthias Ziegler und Markus Bühner"
+date: "15 9 2017"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    
+---
+
+In diesem html Dokument finden sich Code und Ausgaben, wie sie in Kapitel 3 angegeben sind. 
+
+#Kapitel 3
+##Festlegen des Arbeitsverzeichnisses
+```{r}
+setwd("/Users/Matthias/Dropbox/Statistikbuch 2. Auflage/htmls")
+```
+##Daten simulieren
+```{r}
+set.seed(124)
+dat.sim <- data.frame(value = round(rnorm(250, mean=3.5, sd=sqrt(2.09))))
+#Hier sind nun leider auch Zahlen außerhalb von 1 und 5 enthalten
+table(dat.sim)
+#Dies müssen wir korrigieren
+#Dazu erstellen wir ein neues, leeres Datenframe
+a <- data.frame(value = 1)
+#Nun machen wir subsets der Daten, die außerhalb des Wertebereichs liegen und ersetzen diese solange durch neue Simulationen, bis alle Werte im WB sind
+while (length(a[,1]) > 0){
+  a <- subset(dat.sim, value < 1 | value > 5)
+  if (length(a[,1]) > 0) s <- round(rnorm(length(a[,1]),mean=3.5, sd=sqrt(2.09)))
+  dat.sim[rownames(a),1] <- s
+}
+#Nun stimmt es
+table(dat.sim)
+```
+  Nun speichern wir den Datensatz ab.
+  
+```{r}
+library(openxlsx)
+write.xlsx(dat.sim, "unbenannt.xlsx")
+
+```
+
+##Ziehen von Stichproben und Schätzen der Mittelwerte mit Zurücklegen
+  Hierbei ziehen wir einmal sehr kleine Stichproben von nur 5 Personen (Ziehung1) und dann große Stichproben von 249 Personen (Ziehung2).
+```{r}
+Ziehungen1 <- vector(length = 1000)
+Ziehungen2 <- vector(length = 1000)
+
+for(i in 1 : 1000) Ziehungen1[i] <- mean(sample(dat.sim[,1],5),replace = TRUE)
+for(i in 1 : 1000) Ziehungen2[i] <- mean(sample(dat.sim[,1],249), replace = TRUE)
+```
+  Diese geschätzten MIttelwerte müssen wir nun noch plotten
+
+```{r}
+
+{
+  par(mfrow=c(2,2))
+d1 <- density(Ziehungen1)  
+plot(d1,main = paste("Dichte: n=5 aus N=250"), ylab="Dichte", xlab="Mittelwerte Evaluationsfrage", xlim=range(1,2,3,4,5), col="darkgreen")
+
+hist(Ziehungen1,main = paste("Histogramm: n=5 aus N=250"), ylab="Häufigkeit", xlab="Mittelwerte Evaluationsfrage", xlim=range(1,2,3,4,5), col="darkgreen")
+
+d2 <- density(Ziehungen2)  
+plot(d2,main = paste("Dichte: n=249 aus N=250"), ylab="Dichte", xlab="Mittelwerte Evaluationsfrage", xlim=range(1,2,3,4,5), col="darkgreen") 
+
+hist(Ziehungen2,main = paste("Histogramm: n=249 aus N=250"), ylab="Häufigkeit", xlab="Mittelwerte Evaluationsfrage", xlim=range(1,2,3,4,5), col="darkgreen")
+
+}
+```
+
+
+
+

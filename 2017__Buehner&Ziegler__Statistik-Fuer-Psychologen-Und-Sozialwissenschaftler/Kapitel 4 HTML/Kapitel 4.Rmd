@@ -1,0 +1,79 @@
+---
+title: "Kapitel 4"
+author: "Matthias Ziegler und Markus Bühner"
+date: "15 9 2017"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    
+---
+
+In diesem html Dokument finden sich Code und Ausgaben, wie sie in Kapitel 4 angegeben sind. 
+
+#Kapitel 4
+##Festlegen des Arbeitsverzeichnisses
+```{r}
+setwd("/Users/Matthias/Dropbox/Statistikbuch 2. Auflage/htmls")
+```
+  
+##Versuchsplanung mit R
+###Fall 1
+  Effektstärke aus Vorstudie
+```{r}
+library(compute.es)
+mes(m.1=18.5, m.2=11.5, sd.1=6, sd.2=9, n.1=5, n.2=8, level=95)
+```
+  
+Nun schätzen wir die Stichprobengröße
+###Schätzung der Stichprobengröße
+```{r}
+library(stats)
+power.t.test(n=NULL, delta=.87, sig.level=.05, power=.8, type="two.sample",
+alternative="one.sided")
+
+power.t.test(n=17, delta=.87, sig.level=.05, power=NULL, type="two.sample",
+alternative="one.sided")
+
+```
+  Hier haben sich im Buch leider 2 Fehler eingeschlichen. Zum einen steht in der Zeile library(stats) noch der Zusatz (Team, 2014). Dies ist ein Literaturhinweis, der an dieser Stelle natürlich nichts zu suchen hat.
+  Zum anderen haben wir geschrieben, dass durch das Setzen power=NULL die Teststärke geschätzt werden kann. Der im Buch angegebene Wert ergibt sich jedoch nicht wie da geschrieben durch n=18, sondern eben wieder n=17, wie hier dargestellt.
+  
+###Fall 2
+```{r}
+power.t.test(n=NULL, delta=.15, sig.level=.20, power=.95, type="two.sample",
+alternative="two.sided")
+```
+  
+###Fall 3
+
+```{r}
+library(compute.es)
+mes(m.1=3.58, m.2=3.39, sd.1=.71, sd.2=.69, n.1=15, n.2=15, level=95)
+
+power.t.test(n=30, delta=.27, sig.level=.20, power=NULL, type="two.sample",
+alternative="one.sided")
+
+power.t.test(n=30, delta=.27, sig.level=.20, power=NULL, type="two.sample",
+alternative="one.sided")
+```
+  
+###Fall 3a und 3b
+```{r}
+power.t.test(n=30, delta=.6713601, sig.level=NULL, power=.95, type="two.sample",
+alternative="one.sided")
+
+power.t.test(n=15, delta=0.6713601, sig.level=NULL, power=.95, type="two.sample",
+alternative="two.sided")
+```
+
+  
+
+
+
+
+
+
+
