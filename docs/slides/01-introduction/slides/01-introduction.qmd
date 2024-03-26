@@ -1,7 +1,0 @@
----
-title: "01-introduction"
-author: "Dr. Maik Bieleke"
-format: revealjs
----
-
-## Test

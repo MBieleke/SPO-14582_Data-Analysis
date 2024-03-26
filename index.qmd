@@ -34,9 +34,9 @@ d |>
   text_transform(cells_body(columns = c(Who)),
     fn = function(x) {
       dplyr::case_when(
-        grepl("&", x, fixed = TRUE) ~ "<img src='images/Bieleke.png' alt='Maik Bieleke' style='width:25px;height:25px;'> <img src='images/Stähler.png' alt='Johanna Stähler' style='width:25px;height:25px;'>",
-        grepl("MB", x, fixed = TRUE) ~ "<img src='images/Bieleke.png' alt='Maik Bieleke' style='width:25px;height:25px;'>",
-        grepl("JS", x, fixed = TRUE) ~ "<img src='images/Stähler.png' alt='Johanna Stähler' style='width:25px;height:25px;'>",
+        grepl("&", x, fixed = TRUE) ~ "<img src='images/Bieleke-Icon.png' alt='Maik Bieleke' style='width:25px;height:25px;'> <img src='images/Stähler-Icon.png' alt='Johanna Stähler' style='width:25px;height:25px;'>",
+        grepl("MB", x, fixed = TRUE) ~ "<img src='images/Bieleke-Icon.png' alt='Maik Bieleke' style='width:25px;height:25px;'>",
+        grepl("JS", x, fixed = TRUE) ~ "<img src='images/Stähler-Icon.png' alt='Johanna Stähler' style='width:25px;height:25px;'>",
         TRUE ~ ""
       )
     }
