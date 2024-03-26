@@ -1,0 +1,32 @@
+---
+title: "Preparation"
+subtitle: "Installing R and RStudio"
+---
+
+In preparation of the seminar, please follow the instructions below to install R and RStudio on your personal computers. R is a free programming language widely used for data analysis and statistics, while RStudio is a free integrated development environment (IDE) that makes using R more user-friendly.
+
+Please complete the following steps before the first class meeting. If you encounter any issues during the installation process, don't hesitate to reach out to the teaching team for assistance.
+
+## Step 1: Install R
+
+1. Go to the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/){.external target="_blank} website.
+2. Click on the download link for your operating system (Windows, Mac, or Linux).
+3. Follow the instructions to install R on your computer.
+   - Windows: Click on the "Download R for Windows" link and then on "base" or "install R for the first time." Download the latest version of R for Windows by clicking on "Download R 4.x.x for Windows." Run the downloaded `.exe` file and follow the installation instructions.
+   - Mac: Click on the "Download R for macOS" link and then on "R-4.x.x.pkg" to download the latest version of R for Mac. Run the downloaded `.pkg` file and follow the installation instructions.
+   - Linux: Click on the "Download R for Linux" link and select the appropriate distribution for your system. Follow the installation instructions.
+
+## Step 2: Install RStudio
+
+1. Go to the [RStudio download page](https://posit.co/download/rstudio-desktop/){.external target="_blank}.
+2. Under "Install RStudio" click on the download button (it should automatically detect your operating system). If your operating system is not detected, select the appropriate version for your system from the list of installers below.
+3. Run the downloaded installer and follow the installation instructions.
+
+## Step 3: Verify Installation
+1. Open RStudio by double-clicking on the RStudio icon on your desktop or in the Start menu.
+2. In the RStudio console, type the following command and press Enter:
+   ```r
+   print("Hello, R!")
+   ```
+3. If you see the output `Hello, R!`, then R and RStudio have been successfully installed on your computer.
+

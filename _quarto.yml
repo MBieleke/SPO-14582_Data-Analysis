@@ -18,8 +18,10 @@ website:
     left:
       - text: Home
         href: index.qmd
-      - text: Slides
-        href: slides/index.qmd
+      - text: Materials
+        href: materials/index.qmd
+      - text: Preparation
+        href: materials/index.qmd
         
 format:
   html:
@@ -27,5 +29,5 @@ format:
     css: styles.css
     toc: true
 
-editor: visual
+editor: source
 

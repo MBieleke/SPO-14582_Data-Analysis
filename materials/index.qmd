@@ -1,0 +1,43 @@
+---
+title: "Materials"
+---
+
+The slides for this course are password-protected. The password is announced in the first class meeting.
+
+## Introduction
+
+<a class="btn btn-dark rounded-pill" href="aeqs.docx" download role="button">{{< fa file-word >}} Download Doc</a> <a class="btn btn-dark rounded-pill" href="aeqs.pdf" download role="button">{{< fa file-pdf >}} Download PDF</a>
+
+## Background
+
+The If-Then Planning Scale (ITPS) is a theory-grounded and empirically validated instrument for assessing individual differences in the propensity to make if-then plans in order to facilitate one's goal attainment (e.g., "If I go to the cafeteria, then I will I grab an apple" when the goal is to eat healthier). It consists of eight items that tap into two important aspects of implementation intentions: whether an individual identifies critical obstacles and opportunities (e.g., going to the cafeteria) and specifies corresponding goal-directed behaviors (e.g., grabbing an apple).
+
+## Usage
+
+### License
+
+The If-Then Planning Scale (ITPS) is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/). In short, this license allows anyone to share and adapt the ITPS for any purpose and without requiring the authors' permission. The only requirement is to give appropriate credit (see next section).
+
+### Citation
+
+To give appropriate credit, please cite the following publication:
+
+Bieleke, M., & Keller, L. (2021). Individual differences in if-then planning: Insights from the development and application of the If-Then Planning Scale (ITPS). *Personality and Individual Differences*, *170*, Article 110500. [https://doi.org/10.1016/j.paid.2020.110500](https://doi.org/10.1016/j.paid.2020.110500)
+
+
+## Adminstration
+
+### Administration
+
+The ITPS can be administered in an online or in a paper-and-pencil format. Completing it takes about 1-2 minutes. The items might be presented in random order to avoid order effects. Participants rate each of the eight items on a 7-point Likert scale from 1 (*strongly disagree*) to 7 (*strongly agree*).
+
+### Instruction
+
+The ITPS has been developed as a domain-general measure of if-then planning. Accordingly, the instruction refers to goals in general and not to a specific goal. The focus is on difficult and important goals as only these goals require if-then planning to facilitate goal attainment. However, the instruction can in principle also be tailored to specific goals (e.g., health goals, learning goals) if the focus is on if-then planning in a particular domain. 
+
+### Scoring and interpretation
+
+An overall score is obtained by averaging a participant's ratings across all eight items. All items are formulated in the same direction so that no reverse-coding is neccessary. A higher ITPS score indicates a greater propensity to engage in if-then planning.
+
+Note that although the ITPS is composed of different subscales (e.g., thinking about potential obstacles), subscale scores should only be used for explorative analyses. In general, it is recommended to interpret the overall ITPS score. 
+
