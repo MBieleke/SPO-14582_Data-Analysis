@@ -21,7 +21,7 @@ website:
       - text: Materials
         href: materials/index.qmd
       - text: Preparation
-        href: materials/index.qmd
+        href: preparation/index.qmd
         
 format:
   html:

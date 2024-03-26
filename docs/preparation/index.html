@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Analysis - Materials</title>
+<title>Data Analysis - Preparation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -39,8 +73,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/iconify-1.0.8/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -90,8 +122,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../slides/index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Slides</span></a>
+    <a class="nav-link" href="../materials/index.html" rel="" target="">
+ <span class="menu-text">Materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../preparation/index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Preparation</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -119,19 +155,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
-  <ul class="collapse">
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
-  </ul></li>
-  <li><a href="#adminstration" id="toc-adminstration" class="nav-link" data-scroll-target="#adminstration">Adminstration</a>
-  <ul class="collapse">
-  <li><a href="#administration" id="toc-administration" class="nav-link" data-scroll-target="#administration">Administration</a></li>
-  <li><a href="#instruction" id="toc-instruction" class="nav-link" data-scroll-target="#instruction">Instruction</a></li>
-  <li><a href="#scoring-and-interpretation" id="toc-scoring-and-interpretation" class="nav-link" data-scroll-target="#scoring-and-interpretation">Scoring and interpretation</a></li>
-  </ul></li>
+  <li><a href="#step-1-install-r" id="toc-step-1-install-r" class="nav-link active" data-scroll-target="#step-1-install-r">Step 1: Install R</a></li>
+  <li><a href="#step-2-install-rstudio" id="toc-step-2-install-rstudio" class="nav-link" data-scroll-target="#step-2-install-rstudio">Step 2: Install RStudio</a></li>
+  <li><a href="#step-3-verify-installation" id="toc-step-3-verify-installation" class="nav-link" data-scroll-target="#step-3-verify-installation">Step 3: Verify Installation</a></li>
   </ul>
 </nav>
     </div>
@@ -140,7 +166,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Materials</h1>
+<h1 class="title">Preparation</h1>
+<p class="subtitle lead">Installing R and RStudio</p>
 </div>
 
 
@@ -155,44 +182,39 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>The slides for this course are password-protected. The password is announced in the first class meeting.</p>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p><a class="btn btn-dark rounded-pill" href="aeqs.docx" download="" role="button"><i class="fa-solid fa-file-word" aria-label="file-word"></i> Download Doc</a> <a class="btn btn-dark rounded-pill" href="aeqs.pdf" download="" role="button"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i> Download PDF</a></p>
+<p>In preparation of the seminar, please follow the instructions below to install R and RStudio on your personal computers. R is a free programming language widely used for data analysis and statistics, while RStudio is a free integrated development environment (IDE) that makes using R more user-friendly.</p>
+<p>Please complete the following steps before the first class meeting. If you encounter any issues during the installation process, don’t hesitate to reach out to the teaching team for assistance.</p>
+<section id="step-1-install-r" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-install-r">Step 1: Install R</h2>
+<ol type="1">
+<li>Go to the <a href="https://cran.r-project.org/" class="external" target="&quot;_blank">Comprehensive R Archive Network (CRAN)</a> website.</li>
+<li>Click on the download link for your operating system (Windows, Mac, or Linux).</li>
+<li>Follow the instructions to install R on your computer.
+<ul>
+<li>Windows: Click on the “Download R for Windows” link and then on “base” or “install R for the first time.” Download the latest version of R for Windows by clicking on “Download R 4.x.x for Windows.” Run the downloaded <code>.exe</code> file and follow the installation instructions.</li>
+<li>Mac: Click on the “Download R for macOS” link and then on “R-4.x.x.pkg” to download the latest version of R for Mac. Run the downloaded <code>.pkg</code> file and follow the installation instructions.</li>
+<li>Linux: Click on the “Download R for Linux” link and select the appropriate distribution for your system. Follow the installation instructions.</li>
+</ul></li>
+</ol>
 </section>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>The If-Then Planning Scale (ITPS) is a theory-grounded and empirically validated instrument for assessing individual differences in the propensity to make if-then plans in order to facilitate one’s goal attainment (e.g., “If I go to the cafeteria, then I will I grab an apple” when the goal is to eat healthier). It consists of eight items that tap into two important aspects of implementation intentions: whether an individual identifies critical obstacles and opportunities (e.g., going to the cafeteria) and specifies corresponding goal-directed behaviors (e.g., grabbing an apple).</p>
+<section id="step-2-install-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-install-rstudio">Step 2: Install RStudio</h2>
+<ol type="1">
+<li>Go to the <a href="https://posit.co/download/rstudio-desktop/" class="external" target="&quot;_blank">RStudio download page</a>.</li>
+<li>Under “Install RStudio” click on the download button (it should automatically detect your operating system). If your operating system is not detected, select the appropriate version for your system from the list of installers below.</li>
+<li>Run the downloaded installer and follow the installation instructions.</li>
+</ol>
 </section>
-<section id="usage" class="level2">
-<h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<section id="license" class="level3">
-<h3 class="anchored" data-anchor-id="license">License</h3>
-<p>The If-Then Planning Scale (ITPS) is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. In short, this license allows anyone to share and adapt the ITPS for any purpose and without requiring the authors’ permission. The only requirement is to give appropriate credit (see next section).</p>
-</section>
-<section id="citation" class="level3">
-<h3 class="anchored" data-anchor-id="citation">Citation</h3>
-<p>To give appropriate credit, please cite the following publication:</p>
-<p>Bieleke, M., &amp; Keller, L. (2021). Individual differences in if-then planning: Insights from the development and application of the If-Then Planning Scale (ITPS). <em>Personality and Individual Differences</em>, <em>170</em>, Article 110500. <a href="https://doi.org/10.1016/j.paid.2020.110500">https://doi.org/10.1016/j.paid.2020.110500</a></p>
-</section>
-</section>
-<section id="adminstration" class="level2">
-<h2 class="anchored" data-anchor-id="adminstration">Adminstration</h2>
-<section id="administration" class="level3">
-<h3 class="anchored" data-anchor-id="administration">Administration</h3>
-<p>The ITPS can be administered in an online or in a paper-and-pencil format. Completing it takes about 1-2 minutes. The items might be presented in random order to avoid order effects. Participants rate each of the eight items on a 7-point Likert scale from 1 (<em>strongly disagree</em>) to 7 (<em>strongly agree</em>).</p>
-</section>
-<section id="instruction" class="level3">
-<h3 class="anchored" data-anchor-id="instruction">Instruction</h3>
-<p>The ITPS has been developed as a domain-general measure of if-then planning. Accordingly, the instruction refers to goals in general and not to a specific goal. The focus is on difficult and important goals as only these goals require if-then planning to facilitate goal attainment. However, the instruction can in principle also be tailored to specific goals (e.g., health goals, learning goals) if the focus is on if-then planning in a particular domain.</p>
-</section>
-<section id="scoring-and-interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="scoring-and-interpretation">Scoring and interpretation</h3>
-<p>An overall score is obtained by averaging a participant’s ratings across all eight items. All items are formulated in the same direction so that no reverse-coding is neccessary. A higher ITPS score indicates a greater propensity to engage in if-then planning.</p>
-<p>Note that although the ITPS is composed of different subscales (e.g., thinking about potential obstacles), subscale scores should only be used for explorative analyses. In general, it is recommended to interpret the overall ITPS score.</p>
+<section id="step-3-verify-installation" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-verify-installation">Step 3: Verify Installation</h2>
+<ol type="1">
+<li><p>Open RStudio by double-clicking on the RStudio icon on your desktop or in the Start menu.</p></li>
+<li><p>In the RStudio console, type the following command and press Enter:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello, R!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>If you see the output <code>Hello, R!</code>, then R and RStudio have been successfully installed on your computer.</p></li>
+</ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
