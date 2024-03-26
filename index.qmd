@@ -5,7 +5,7 @@ author: "Maik Bieleke, PhD"
 
 ### Overview
 
-SPO-14582: Data Analysis is a seminar offered in the [M.Sc. Sport Science for Health](https://www.sportwissenschaft.uni-konstanz.de/en/study/master-of-science/){.external target="_blank"} at the University of Konstanz. It provides an introduction to data analysis using the statistical programming software R. Students will learn the basics of R programming and how to use R for common data analysis tasks.
+SPO-14582: Data Analysis is a seminar offered in the [M.Sc. Sport Science for Health](https://www.sportwissenschaft.uni-konstanz.de/en/study/master-of-science/){.external target="_blank"} at the University of Konstanz. It provides an introduction to data analysis using the statistical programming software R. Students will learn the basics of R programming and how to use R for common data processing, analysis, and visualization tasks.
 
 ### Class Meetings
 

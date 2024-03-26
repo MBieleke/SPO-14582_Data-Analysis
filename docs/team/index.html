@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Analysis - Preparation</title>
+<title>Data Analysis - Teaching Team</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -99,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 
 <div id="quarto-search-results"></div>
@@ -122,11 +88,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link active" href="../team/index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Team</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../materials/index.html" rel="" target="">
  <span class="menu-text">Materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../preparation/index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../preparation/index.html" rel="" target="">
  <span class="menu-text">Preparation</span></a>
   </li>  
 </ul>
@@ -150,24 +120,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#step-1-install-r" id="toc-step-1-install-r" class="nav-link active" data-scroll-target="#step-1-install-r">Step 1: Install R</a></li>
-  <li><a href="#step-2-install-rstudio" id="toc-step-2-install-rstudio" class="nav-link" data-scroll-target="#step-2-install-rstudio">Step 2: Install RStudio</a></li>
-  <li><a href="#step-3-verify-installation" id="toc-step-3-verify-installation" class="nav-link" data-scroll-target="#step-3-verify-installation">Step 3: Verify Installation</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Preparation</h1>
-<p class="subtitle lead">Installing R and RStudio</p>
+<h1 class="title">Teaching Team</h1>
 </div>
 
 
@@ -182,38 +141,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>In preparation of the seminar, please follow the instructions below to install R and RStudio on your personal computers. R is a free programming language widely used for data analysis and statistics, while RStudio is a free integrated development environment (IDE) that makes using R more user-friendly.</p>
-<p>Please complete the following steps before the first class meeting. If you encounter any issues during the installation process, don’t hesitate to reach out to the teaching team for assistance.</p>
-<section id="step-1-install-r" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-install-r">Step 1: Install R</h2>
-<p>If you don’t already have R installed on your computer, follow the instructions below to download and install R:</p>
-<ol type="1">
-<li>Go to the <a href="https://cran.r-project.org/" class="external" target="&quot;_blank">Comprehensive R Archive Network (CRAN)</a> website.</li>
-<li>Click on the download link for your operating system (Windows, Mac, or Linux).</li>
-<li>Follow the instructions to install R on your computer.
-<ul>
-<li>Windows: Click on the “Download R for Windows” link and then on “base” or “install R for the first time.” Download the latest version of R for Windows by clicking on “Download R 4.x.x for Windows.” Run the downloaded <code>.exe</code> file and follow the installation instructions.</li>
-<li>Mac: Click on the “Download R for macOS” link and then on “R-4.x.x.pkg” to download the latest version of R for Mac. Run the downloaded <code>.pkg</code> file and follow the installation instructions.</li>
-<li>Linux: Click on the “Download R for Linux” link and select the appropriate distribution for your system. Follow the installation instructions.</li>
-</ul></li>
-</ol>
+<section id="dr.-maik-bieleke" class="level2">
+<h2 class="anchored" data-anchor-id="dr.-maik-bieleke">Dr.&nbsp;Maik Bieleke</h2>
+<p><img src="../images/Bieleke.png" class="img-fluid" style="float:right;padding: 0 0 0 10px;" alt="Headshot of Dr. Maik Bieleke" width="125"></p>
+<p><a href="https://www.sportwissenschaft.uni-konstanz.de/schueler/staff/team/dr-maik-bieleke/" class="external" target="_blank">Dr.&nbsp;Maik Bieleke</a> is senior researcher and data scientist at the department of sport science at the University of Konstanz. His research focus is on sport psychology, with a special emphasis on motivation, effort, and performance in both laboratory and real-life settings. He has 10+ years of experience in working with R for data analysis and teaching R to students and researchers.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Office Hours</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wed, 12:00 - 14:30 pm (<a href="https://calendar.app.google/fspVSbVrWXdBtcJZ6">make an appointment here</a>)</td>
+<td>Room D 617 or <a href="https://uni-konstanz-de.zoom.us/j/92566030299" title="Start Zoom Meeting">via Zoom</a></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="step-2-install-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-install-rstudio">Step 2: Install RStudio</h2>
-<ol type="1">
-<li>Go to the <a href="https://posit.co/download/rstudio-desktop/" class="external" target="&quot;_blank">RStudio download page</a>.</li>
-<li>Under “Install RStudio” click on the download button (it should automatically detect your operating system). If your operating system is not detected, select the appropriate version for your system from the list of installers below.</li>
-<li>Run the downloaded installer and follow the installation instructions.</li>
-</ol>
-</section>
-<section id="step-3-verify-installation" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-verify-installation">Step 3: Verify Installation</h2>
-<ol type="1">
-<li><p>Open RStudio by double-clicking on the RStudio icon on your desktop or in the Start menu.</p></li>
-<li><p>In the RStudio console, type the following command and press Enter:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello, R!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>If you see the output <code>Hello, R!</code>, then R and RStudio have been successfully installed on your computer.</p></li>
-</ol>
+<section id="johanna-stähler" class="level2">
+<h2 class="anchored" data-anchor-id="johanna-stähler">Johanna Stähler</h2>
+<p><img src="../images/Stähler.png" class="img-fluid" style="float:left;padding: 0 10px 0 0;" alt="Headshot of Johanna Stähler" width="125"></p>
+<p><a href="https://www.sportwissenschaft.uni-konstanz.de/schueler/staff/team/johanna-staehler/" class="external" target="_blank">Johanna Stähler</a> …</p>
 
 
 </section>

@@ -9,6 +9,8 @@ Please complete the following steps before the first class meeting. If you encou
 
 ## Step 1: Install R
 
+If you don't already have R installed on your computer, follow the instructions below to download and install R:
+
 1. Go to the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/){.external target="_blank} website.
 2. Click on the download link for your operating system (Windows, Mac, or Linux).
 3. Follow the instructions to install R on your computer.
