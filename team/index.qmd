@@ -12,9 +12,9 @@ format:
 
 [Dr. Maik Bieleke](https://www.sportwissenschaft.uni-konstanz.de/schueler/staff/team/dr-maik-bieleke/){.external target="_blank"} is senior researcher and data scientist at the department of sport science at the University of Konstanz. His research focus is on sport psychology, with a special emphasis on motivation, effort, and performance in both laboratory and real-life settings. He has 10+ years of experience in working with R for data analysis and teaching R to students and researchers.
 
-| Office Hours                                                                                      | Location                                                                                     |
-|-------------------------------|-----------------------------------------|
-| Wed, 12:00 - 14:30 pm ([make an appointment here](https://calendar.app.google/fspVSbVrWXdBtcJZ6)) | Room D 617 or [via Zoom](https://uni-konstanz-de.zoom.us/j/92566030299 "Start Zoom Meeting") |
+- Office Hours: Wed, 12:00 - 14:30 pm ([make an appointment here](https://calendar.app.google/fspVSbVrWXdBtcJZ6))
+- Location: Room D 617 or [via Zoom](https://uni-konstanz-de.zoom.us/j/92566030299 "Start Zoom Meeting")
+
 
 ## Johanna Stähler
 

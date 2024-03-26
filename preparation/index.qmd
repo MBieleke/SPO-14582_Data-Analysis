@@ -1,11 +1,14 @@
 ---
 title: "Preparation"
-subtitle: "Installing R and RStudio"
+
+format: 
+  html: 
+    toc: false
 ---
 
 In preparation of the seminar, please follow the instructions below to install R and RStudio on your personal computers. R is a free programming language widely used for data analysis and statistics, while RStudio is a free integrated development environment (IDE) that makes using R more user-friendly.
 
-Please complete the following steps before the first class meeting. If you encounter any issues during the installation process, don't hesitate to reach out to the teaching team for assistance.
+If you encounter any issues during the installation process, don't hesitate to reach out to the teaching team for assistance.
 
 ## Step 1: Install R
 

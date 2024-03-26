@@ -1,5 +1,9 @@
 ---
 title: "Materials"
+
+format: 
+  html: 
+    toc: false
 ---
 
 The slides for this course are password-protected. The password is announced in the first class meeting.

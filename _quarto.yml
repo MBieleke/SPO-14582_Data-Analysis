@@ -9,6 +9,9 @@ website:
     
   navbar:
     right:
+      - text: "{{< iconify mingcute directory-line >}} zeus"
+        href: "https://zeus.uni-konstanz.de:443/hioserver/pages/startFlow.xhtml?_flowId=detailView-flow&unitId=96630&periodId=792&navigationPosition=studiesOffered,courseoverviewShow"
+        target: _blank
       - text: "{{< iconify tabler brand-nextcloud >}} cloud"
         href: "https://cloud.uni-konstanz.de/index.php/s/XJWZe7zRmjcTYEW"
         target: _blank
@@ -20,10 +23,10 @@ website:
         href: index.qmd
       - text: Team
         href: team/index.qmd
-      - text: Materials
-        href: materials/index.qmd
       - text: Preparation
         href: preparation/index.qmd
+      - text: Materials
+        href: materials/index.qmd
         
 format:
   html:
