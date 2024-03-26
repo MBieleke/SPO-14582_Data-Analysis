@@ -1,0 +1,461 @@
+---
+title: "Data Analysis --- Final Exam"
+subtitle: "Summer Term 2023"
+author: "Maik Bieleke & Johanna Stähler"
+format: pdf
+toc: true
+toc-depth: 2
+self-contained: true
+self-contained-math: true
+editor: visual
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Load packages
+library(rio)
+library(dplyr)
+library(tidyr)
+library(afex)
+library(ggplot2)
+
+# Import data from OSF
+data_old <- import("data/2021_Data_CycAppStudy_UEQ_FSS-2S_N34_Weigl_et_al.csv")
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+# Import data with correct format
+data <- import("data/Weigl2021.csv")
+
+```
+
+## Instructions
+
+### Article
+
+This exam is based on Weigl, K., Schuster, S., & Riener, A. (2021). Investigation of UX and flow experience in sports activities during the covid-19 pandemic: A comparative analysis of cycling apps. In *Proceedings of the 9th International Conference on Sport Sciences Research and Technology Support*, p. 61-68. http://dx.doi.org/10.5220/0010688200003059
+
+Both the article (`Weigl2021.pdf`) and the data (`Weigl2021.csv`) are available on Ilias. You should read the paper carefully before working on the exam. Make sure that you understand the methods and analyses, as well as the dataset.
+
+### Scoring
+
+The maximum possible score for the exam is 100 points. Up to 90 points can be earned by solving the six problems, each of which comprises several tasks. Another 10 points can be earned by adhering to the coding and scripting style introduced in the seminar.
+
+| Problem                  | Points |
+|--------------------------|--------|
+| Problem 1                | 10     |
+| Problem 2                | 10     |
+| Problem 3                | 15     |
+| Problem 4                | 15     |
+| Problem 5                | 25     |
+| Problem 6                | 15     |
+| Coding & Scripting Style | 10     |
+
+### Using packages, functions, and features
+
+If not explicitly stated otherwise in the problem, only R packages, R functions, and RStudio features introduced in the seminar are allowed for solving each task. You will receive 0 points for a task that uses other packages, functions, or features.
+
+### Referencing seminar content
+
+Whenever you use or mention R packages, R functions, or RStudio features from the seminar, provide a brief reference to the relevant lecture slide (e.g., "L4, Slide 5" is short for Slide 5 in Lecture 4 on Operations). You will receive 0 points for a task that has no proper references.
+
+Example: Calculate the mean and standard deviation of vector A.
+
+Answer:
+
+```{r}
+#| eval: false
+
+# L4, Slide 5
+mean(vectorA)
+sd(vectorA)
+```
+
+### Submitting Files
+
+You submit three files: 
+
+* The `.r` script for analyzing the dataset. 
+* A text document (e.g., `.docx`) with detailed explanations and descriptions and the  screenshot in Problem 1. 
+* The figure in Problem 5 as `.png` file.
+
+## Problem 1: Data preprocessing (10 points)
+
+Note that this problem deals with the original dataset of the article, not with the dataset you received for the exam. Accordingly, all answers can be provided in the text document even if they involve R code.
+
+@fig-1 shows a screenshot that has been generated based on the original dataset.
+
+![Screenshot based on the original dataset](screenshots/str_output.png){#fig-1}
+
+1.  Explain in writing what output the screenshot displays, and what information it provides about the data.
+
+    ```{r}
+    #| include: false
+
+    #* shows the (truncated) output of str() applied to dataset
+    #* object of class data frame (also possible: list)
+    #* name, type, and example values of each variable
+
+    ```
+
+2.  Identify 5 potential issues with the data shown in the screenshot. Describe in writing how each issue can be addressed, and specify the R functions involved.
+
+    ```{r}
+    #| include: false
+
+    # 1.  Columns with missing values
+    #     Solution: delete those columns (Unit: operations, Slide 30: Select Rows)
+    #     data_old <- select(data_old, !c("Adidas", "Komoot", "Strava"))
+
+    # 2.  Numbers interpreted as character
+    #     Solution: change variable type (Unit: Data, 
+    #     Slide 12: Change Types Manually)
+    #     data_old$A_FSS2S_MeanScore <- as.integer(as.factor(data_old$A_FSS2S_MeanScore))
+
+    # 3.  Comma as separator
+    #     Solution: import it as German csv
+    #     data_old <- read.csv2("data/2021_Data_CycAppStudy_UEQ_FSS-2S_N34_Weigl_et_al.csv")
+
+    # 4.  Factors interpreted as numeric
+    #     Solution: change variable type (Unit: Data, 
+    #     Slide 12: Change Types Manually)
+    #     data_old$Familienstand <- as.factor(data_old$Familienstand)
+
+    # 5.  German Umlaute / special characters in the variable names.
+    #     Solution: change to ae, oe, ue
+    #     data_old <- rename(data_old, Regalmaessig_Laufen = "Regelmäßig_Laufen")
+
+    ```
+
+3.  One value in the screenshot is highlighted in yellow. Suggest 6 ways of extracting it with operations introduced in the seminar. Explain the R code for each approach, and explain which approach(es) you would favor and why.
+
+    ```{r}
+    #| include: false
+
+    # Data frame as matrix, numeric/character indexing
+    # data[4, 25]:
+    # data[ , "S_UEQ_Factor6_Novelty_MeanScore"][4]
+    # data[4 , "S_UEQ_Factor6_Novelty_MeanScore"]
+
+    # Data frame as list, numeric/character indexing
+    # data[[25]][4]
+    # data[["S_UEQ_Factor6_Novelty_MeanScore"]][4]
+    # data$S_UEQ_Factor6_Novelty_MeanScore[4]
+
+    ```
+
+## Problem 2: Analysis workflow (10 points)
+
+Note that no R coding is required for solving the following tasks. Accordingly, all answers (including the screenshot) can be provided in the text document.
+
+1.  Establish a data analysis workflow along the guidelines provided in the seminar, using RStudio features only. Your workflow should involve creating a directory with all the files and folders needed for the analysis of the exam data.
+2.  Describe in writing how you established the directory in RStudio. Produce a screenshot (or take a picture) of the appropriate RStudio pane or tab that shows your directory.
+3.  Explain in writing how your workflow handles the working directory and the workspace for your analysis.
+
+::: {.callout-note}
+For solving the following problems, it will be necessary to take steps that are not diretcly required in the tasks, such as importing the data, loading packages, or preprocessing variables. Carry out these additional steps as necessary for solving the problems.
+:::
+
+
+
+## Problem 3: Demographic variables (15 points)
+
+In this problem, you will analyze some demographic variables. Make sure that your output closely matches the output shown below, which might require preprocessing the variables. Note that character functions (L4, Slide 9ff) are neither necessary nor allowed.
+
+1.  Gender: Absolute frequency of women and men
+
+    ```{r}
+    #| echo: false
+
+    # In order to get the labels, create a factor.
+    data$sex <- factor(data$sex, 
+                       levels = c(1, 2), labels = c("women", "men"))
+
+    # Table gender.
+    table(data$sex)
+
+    ```
+
+2.  Gender: Relative frequency of women and men.
+
+    ```{r}
+    #| echo: false
+
+    # Use prop.table along with rounding.
+    round(prop.table(table(data$sex)) * 100, 2)
+
+    ```
+
+3.  Age: Means, standard deviations, and ranges for women and men.
+
+    ```{r}
+    #| echo: false
+
+    # Use dplyr.
+    summarise(group_by(data, sex), 
+              Min = min(age), Max = max(age),
+              M = mean(age), SD = sd(age))
+
+    ```
+
+4.  The authors reported how many of their participants "regularly go running (12/34)" (p. 62). Find the relevant variable in the dataset and reconstruct how the authors arrive at these numbers. Then modify and analyze the variable to produce the following output.
+
+    ```{r}
+    #| echo: false
+
+    # Create factors reflecting how the authors dichotomized the variables.
+    data$Regular_Running <- factor(data$Regular_Running,
+                                   levels = 0:5, labels = c("no regular running", 
+                                                            "no regular running",
+                                                            rep("regular running", 4)))
+
+    table(data$Regular_Running)
+
+    ```
+
+5.  The authors claim that 18 participants knew at least one of the three apps. Find the relevant variable in the dataset and use R code to demonstrate that this statement is incorrect.
+
+    ```{r}
+    #| include: false
+
+    # Count how many values are not ""
+    length(data$Known_Apps_Specification[!data$Known_Apps_Specification == ""])
+
+    ```
+
+## Problem 4: Cronbach's $\alpha$ (15 points)
+
+Several Cronbach's $\alpha$ values are reported in the article. Cronbach's $\alpha$ is a measure of the internal consistency of a scale. One way to compute it in R is the `misty::item.alpha()` function. Solve the following tasks based on the function's documentation.
+
+1.  Show that the Cronbach's $\alpha$ values reported in the article cannot be calculated with the available dataset according to the documentation.
+
+    ```{r}
+    #| include: false
+
+    # According to the documentation, the input must be "a matrix, data frame,
+    # variance-covariance or correlation matrix" for each scale. This is not 
+    # available in the dataset, because no individual items are presented.
+
+    ```
+
+2.  What additional data would allow to calculate the values according to the documentation? Describe two possibilities.
+
+    ```{r}
+    #| include: false
+
+    # Raw data (i.e., scores on the individual items)
+    # Variance-covariance or correlation matrix.
+
+    ```
+
+3.  Write code that could be used to calculate the standardized Cronbach's $\alpha$ if this additional data were available.
+
+    ```{r}
+    #| include: false
+
+    # Assume that dat is a data frame with the raw data. Then,
+    # item.alpha(dat, std = TRUE)
+
+    ```
+
+4.  Change your code to compute the standardized McDonald's $\omega$ using the sampe package. McDonald's $\omega$ is an alternative measure of the internal consistency of a scale that is nor reported in the paper.
+
+    ```{r}
+    #| include: false
+
+    # According to the documentation, this can be achieved with
+    # item.omega(dat, std = TRUE)
+
+    ```
+
+5.  Compute Cronbach's $\alpha$ and McDonald's $\omega$ using the example data in the documentation of `misty::item.alpha()`. Extract the two coefficients to produce the following console output, without typing the numeric values of the coefficients manually. Remember to provide references to the seminar contents as necessary.
+
+    ```{r}
+    #| include: false
+
+    # Dataset from the documentation
+    dat <- data.frame(item1 = c(4, 2, 3, 4, 1, 2, 4, 2),
+                      item2 = c(4, 3, 3, 3, 2, 2, 4, 1),
+                      item3 = c(3, 2, 4, 2, 1, 3, 4, 1),
+                      item4 = c(4, 1, 2, 3, 2, 3, 4, 2))
+    ```
+
+    ```{r}
+    #| include: false
+
+    alpha <- misty::item.alpha(dat, std = T)
+    omega <- misty::item.omega(dat, std = T)
+    ```
+
+    ```{r}
+    #| echo: false
+
+    string <- paste0("Coefficient alpha is ",
+           round(alpha$result$alpha$alpha, 2),
+           " and coefficient omega is ",
+           round(omega$result$omega$omega, 2), " as well.")
+
+    cat(string)
+    ```
+
+## Problem 5: Visualizing the User Experience Questionnaire (UEQ) (25 points)
+
+The authors visualized the user experience with different apps in Figure 1 of the article. The figure comprises (a) the means for the different plots and (b) the benchmarks from Schrepp et al. (2014). In this problem, your task is to produce a simplified version of their graph that shows only (a).
+
+1.  Explain in writing why the UEQ data in the dataset is not tidy in the sense discussed in the seminar.
+
+    ```{r}
+    #| include: false
+
+    #* Relevant information is contained in columns names, rather than being
+    #* represented as dedicated columns of the data frame.
+    #* For instance, the information about the app is part of each column's name,
+    #* while it should be a column "App" with the values A, K, and S
+
+    ```
+
+2.  Write code that modifies the dataset in order to make it suitable for creating the plot in Task 4. Explain in writing how your code makes the dataset tidy.
+
+    ```{r}
+    #| include: false
+
+    # Data needs to be in a long format.
+    data_long <- pivot_longer(data,
+                              cols = c(A_UEQ_Factor1_Attractiveness_MeanScore, 
+                                       A_UEQ_Factor2_Perspicuity_MeanScore, 
+                                       A_UEQ_Factor3_Efficiency_MeanScore,
+                                       A_UEQ_Factor4_Dependability_MeanScore,
+                                       A_UEQ_Factor5_Stimulation_MeanScore,
+                                       A_UEQ_Factor6_Novelty_MeanScore,
+                                       K_UEQ_Factor1_Attractiveness_MeanScore, 
+                                       K_UEQ_Factor2_Perspicuity_MeanScore, 
+                                       K_UEQ_Factor3_Efficiency_MeanScore,
+                                       K_UEQ_Factor4_Dependability_MeanScore,
+                                       K_UEQ_Factor5_Stimulation_MeanScore,
+                                       K_UEQ_Factor6_Novelty_MeanScore,
+                                       S_UEQ_Factor1_Attractiveness_MeanScore, 
+                                       S_UEQ_Factor2_Perspicuity_MeanScore, 
+                                       S_UEQ_Factor3_Efficiency_MeanScore,
+                                       S_UEQ_Factor4_Dependability_MeanScore,
+                                       S_UEQ_Factor5_Stimulation_MeanScore,
+                                       S_UEQ_Factor6_Novelty_MeanScore),
+                              names_to = c("App", "Scale", "Factor", "Label", "Mean"),
+                              names_sep = "_",
+                              values_to = "Score")
+    ```
+
+3.  Based on the modified dataset from Task 2, compute the summary statistics required for producing the graph: means and standard errors of the mean. Note that the standard error of the mean is defined as $$SD_x / \sqrt{N}$$
+
+    ```{r}
+    #| include: false
+
+    # Compute summary statistics
+    data_plot <- summarise(
+      group_by(data_long, App, Label), 
+      M = mean(Score),
+      SD = sd(Score),
+      N = length(unique(data$ID)),
+      LOWER = M - (SD / sqrt(N)),
+      UPPER = M + (SD / sqrt(N)))
+    
+    data_plot
+
+    ```
+
+4.  Create a plot that resembles the following one as closely as possible (pay attention to details, such as correct labelling of the x-axis).
+
+    ```{r}
+    #| echo: false
+
+    # App variable must be relabeld
+    data_plot$App <- factor(data_plot$App, levels = c("A", "K", "S"),
+                            labels = c("Adidas Runtastic", "Komoot", "Strava")) 
+    data_plot$Label <- factor(data_plot$Label, levels = c(
+      "Attractiveness", "Perspicuity", "Efficiency", "Dependability",
+      "Stimulation", "Novelty")) 
+
+    # Create plot
+    pd <- position_dodge(0.2)
+    ggplot(data = data_plot, aes(x = Label, y = M, color = App, group = App)) +
+      theme_bw() +
+      geom_line(linewidth = 1, position = pd) +
+      geom_errorbar(aes(ymin = LOWER, ymax = UPPER), width = .2, position = pd,
+                    linewidth = 1) +
+      geom_point(size = 2, position = pd) +
+      scale_y_continuous(limits = c(-1.00, 2.50), breaks = seq(-1.00, 2.50, 0.50)) +
+      theme(legend.position = "bottom",
+            axis.title = element_blank())
+
+    ```
+
+5.  Save the plot in `.png` format in the designated location of your directory. Make sure that the proportions of the figure are similar to the plot depicted in Task 4.
+
+    ```{r}
+    #| echo: false
+
+    # Save plot
+    ggsave("output/Figure1.png", width = 9, height = 6)
+
+    ```
+
+6.  Looking at Figure 1 in the article, what kind of geom(s) could be used to add the benchmark data to the graph produced in Task 4? Identify three potential obstacles for adding the benchmark data to the plot created above.
+
+    ```{r}
+    #| include: false
+
+    #* geom: stacked barplot with geom_bar using aes(fill = VARIABLE)
+    #* Problem 1: benchmark data is not available in the dataset
+    #* Problem 2: requires compatible datasets that can be plotted on the same axes
+    #* Problem 3: stacked barplot starts at 0, not at -1
+
+    ```
+
+## Problem 6: Analysis of the Flow State Scale-2 Short (FSS-2S) (15 points)
+
+1.  Explain in writing why the data fpr the FSS-2S cannot be submitted to an ANOVA with the dataset in its current format (assuming packages and functions introduced in the seminar). 
+
+2.  Modify the dataset in order to run the analysis.
+
+    ```{r}
+    #| include: false
+
+    # Reshape the data
+    data_long <- pivot_longer(data,
+                              cols = c(A_FSS2S_MeanScore, 
+                                       K_FSS2S_MeanScore, 
+                                       S_FSS2S_MeanScore),
+                              names_to = c("App", "Scale", "Statistic"),
+                              names_sep = "_",
+                              values_to = "Score")
+    ```
+
+3.  Based on the modified dataset, compute the ANOVA. The output should look like this:
+
+    ```{r}
+    #| echo: false
+
+    (m <- aov_4(Score ~ App + (1 + App|ID), data = data_long))
+    ```
+
+4.  Using the documentation, explain in writing how and why the output above deviates from the results reported in the paper. 
+
+5.  Change your ANOVA call such that you exactly reproduce the results in the paper.
+
+    ```{r}
+    #| echo: false
+    #| output: false
+
+    # In contrast to the paper, aov_4 applied a sphericity correction (see documentation.
+    # This changes the degrees of freedom, the critical value, and the p-value.
+    # To solve the issue, we have to remove the correction as follows:
+
+    (m <- aov_4(Score ~ App + (1 + App|ID), data = data_long,
+      anova_table = list(correction = "none")))
+    ```

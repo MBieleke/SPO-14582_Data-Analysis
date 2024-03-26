@@ -3,8 +3,18 @@ project:
   output-dir: docs
 
 website:
+  page-navigation: true
   title: "Data Analysis"
+  description: "Homepage for SPO-14582 - Data Analysis at the University of Konstanz, Summer Term 2024."
+    
   navbar:
+    right:
+      - text: "{{< iconify tabler brand-nextcloud >}} cloud"
+        href: "https://cloud.uni-konstanz.de/index.php/s/XJWZe7zRmjcTYEW"
+        target: _blank
+      - text: "{{< iconify dashicons welcome-learn-more >}} ilias"
+        href: "https://ilias.uni-konstanz.de/goto_ILIASKONSTANZ_crs_1712727.html"
+        target: _blank
     left:
       - text: Home
         href: index.qmd
